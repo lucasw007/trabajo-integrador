@@ -1,36 +1,55 @@
-import { Link } from "react-router-dom"
-import { useAuth } from "../context/UserContext"
+
+
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext'; 
+import '../styles/components/Header.css';
 
 const Header = () => {
-  const { user, logout } = useAuth()
+  const { isAuthenticated, logout } = useUser();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout()
-  }
+    logout();
+    navigate('/');
+  };
 
   return (
-    <header style={{ backgroundColor: "lightblue" }}>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Logo-Test.png" alt="imagen de logo" />
-      <nav>
+    <header className="main-header">
+      <div className="logo">
+        <Link to="/">JAVI'S MARKET</Link>
+      </div>
+      <nav className="main-nav">
         <ul>
-          {/* Cambiar elementos a por componentes Link de react-router-dom */}
-          {
-            user && <>
-              <li><Link to="/">Inicio</Link></li>
-              <li><Link to="/dashboard">Dashboard</Link></li>
-              <button onClick={handleLogout}>Cerrar sesión</button>
+          <li>
+            <Link to="/">Inicio</Link>
+          </li>
+          <li>
+            <Link to="/about">Sobre Nosotros</Link>
+          </li>
+          {isAuthenticated ? (
+            <>
+              <li>
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+              <li>
+                <button onClick={handleLogout} className="logout-button">Cerrar Sesión</button>
+              </li>
             </>
-          }
-          {
-            !user && <>
-              <li><Link to="/login">Login</Link></li>
-              <li><Link to="/registrate">Registrate</Link></li>
+          ) : (
+            <>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/register">Registrarse</Link>
+              </li>
             </>
-          }
+          )}
         </ul>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export { Header }
+export default Header;

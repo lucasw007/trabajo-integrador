@@ -1,80 +1,70 @@
-import { useState } from "react"
-import { Layout } from "../components/Layout"
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
+import '../styles/pages/Register.css';
 
 const Register = () => {
-  const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState("")
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setError("")
-    setSuccess("")
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
-    if (!username || !email || !password) {
-      setError("Debes completar todos los campos")
-      return
+
+  const { register } = useUser();
+  const navigate = useNavigate();
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null); 
+    
+
+    const success = await register(username, password);
+
+    if (success) {
+
+      navigate('/login');
+    } else {
+
+      setError('El registro falló. El nombre de usuario ya existe o hubo un problema.');
     }
-
-    const newUser = {
-      username,
-      email,
-      password
-    }
-
-    console.log(newUser)
-    setSuccess("Usuario registrado con éxito")
-
-    setUsername("")
-    setEmail("")
-    setPassword("")
-  }
+  };
 
   return (
-    <Layout>
-      <h1>Registrate</h1>
+    <div className="register-container">
+      <h2>Crear una cuenta</h2>
+      <form onSubmit={handleSubmit} className="register-form">
+        <div className="form-group">
+          <label htmlFor="username">Nombre de Usuario</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Contraseña</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        {error && <p className="error-message">{error}</p>}
+        <button type="submit" className="register-button">
+          Registrarse
+        </button>
+      </form>
+      <p className="login-link-container">
+        ¿Ya tienes una cuenta? <Link to="/login">Inicia sesión aquí</Link>
+      </p>
+    </div>
+  );
+};
 
-      <section>
-        <h2>Hola, bienvenido</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Username:</label>
-            <input
-              type="text"
-              onChange={(e) => setUsername(e.target.value)}
-              value={username}
-            />
-          </div>
-          <div>
-            <label>Correo electrónico:</label>
-            <input
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-            />
-          </div>
-          <div>
-            <label>Contraseña:</label>
-            <input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            />
-          </div>
-          <button>Ingresar</button>
-        </form>
-
-        {
-          error && <p style={{ color: "red" }}>{error}</p>
-        }
-        {
-          success && <p style={{ color: "green" }}>{success}</p>
-        }
-      </section>
-    </Layout>
-  )
-}
-
-export { Register }
+export { Register };

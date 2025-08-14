@@ -1,22 +1,38 @@
-.red {
-  background-color: red;
+
+:root {
+  --primary-color: #4c51bf;
+  --primary-hover: #5a63c6;
+  --text-color: #2d3748;
+  --secondary-text-color: #4a5568;
+  --bg-color: #f7fafc;
+  --card-bg-color: #ffffff;
+  --border-color: #e2e8f0;
+  --error-color: #e53e3e;
+  --success-color: #2f855a;
 }
 
-.blue {
-  background-color: blue;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.error {
-  color: red;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.6;
 }
 
-.popup-edit {
-  background-color: yellowgreen;
-  padding: 20px;
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: color 0.2s ease-in-out;
 }
 
-input,
-textarea {
-  display: block;
-  padding: 5px;
+a:hover {
+  color: var(--primary-hover);
 }
+

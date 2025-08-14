@@ -1,55 +1,58 @@
-
-import { useState } from "react"
-import { Layout } from "../components/Layout"
-import { useAuth } from "../context/UserContext"
-import { useNavigate } from "react-router-dom"
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
+import '../styles/pages/Login.css';
 
 const Login = () => {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const { login } = useAuth()
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
-  const nagivate = useNavigate()
+  const { login } = useUser();
+  const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault()
-    console.log({ username, password })
-    const isLogin = await login(username, password)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const success = await login(username, password);
 
-    if (isLogin) {
-      setUsername("")
-      setPassword("")
-      nagivate("/")
+    if (success) {
+      navigate('/');
+    } else {
+      setError('Credenciales incorrectas. Inténtalo de nuevo.');
     }
-  }
+  };
 
   return (
-    <Layout>
-      <h1>Inicia sesión</h1>
+    <div className="login-container">
+      <h2>Iniciar Sesión</h2>
+      <form onSubmit={handleSubmit} className="login-form">
+        <div className="form-group">
+          <label htmlFor="username">Usuario</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Contraseña</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        {error && <p className="error-message">{error}</p>}
+        <button type="submit" className="login-button">
+          Entrar
+        </button>
+      </form>
+    </div>
+  );
+};
 
-      <section>
-        <h2>Hola, bienvenido de nuevo</h2>
-        <p>johnd, m38rmF$</p>
-        <form onSubmit={handleLogin}>
-          <div>
-            <label>Nombre de usuario:</label>
-            <input
-              type="text"
-              onChange={(e) => setUsername(e.target.value)}
-              value={username} />
-          </div>
-          <div>
-            <label>Contraseña:</label>
-            <input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password} />
-          </div>
-          <button>Ingresar</button>
-        </form>
-      </section>
-    </Layout>
-  )
-}
-
-export { Login }
+export { Login };
