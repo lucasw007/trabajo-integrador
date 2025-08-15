@@ -7,10 +7,16 @@ const UserContext = createContext();
 const UserProvider = (props) => {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+ 
+  const [user, setUser] = useState(null);
+
+  /**
+
 
   const [user, setUser] = useState(null);
 
   /**
+
    * @param {string} username - El nombre de usuario.
    * @param {string} password - La contraseña.
    * @returns {boolean} - true si el login fue exitoso, false en caso contrario.
@@ -26,10 +32,18 @@ const UserProvider = (props) => {
       });
 
       if (response.ok) {
+
+        
+        const tokenData = await response.json();
+        setUser({ username, token: tokenData.token }); 
+        setIsAuthenticated(true); 
+        return true;
+
        
         const tokenData = await response.json();
         setUser({ username, token: tokenData.token });
         setIsAuthenticated(true); 
+
       } else {
         console.error("Error en el login: Credenciales incorrectas.");
         return false;
@@ -40,7 +54,7 @@ const UserProvider = (props) => {
     }
   };
 
-  
+
   const logout = () => {
     setUser(null);
     setIsAuthenticated(false);
@@ -54,8 +68,6 @@ const UserProvider = (props) => {
   const register = async (username, password) => {
 
     console.log(`Simulando registro del usuario: ${username}`);
-
-    
 
     await new Promise(resolve => setTimeout(resolve, 500)); 
 
@@ -74,6 +86,7 @@ const UserProvider = (props) => {
     </UserContext.Provider>
   );
 };
+
 
 const useUser = () => useContext(UserContext);
 

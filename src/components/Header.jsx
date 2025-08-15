@@ -2,7 +2,9 @@
 
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 import { useUser } from '../context/UserContext'; 
+
 import '../styles/components/Header.css';
 
 const Header = () => {
@@ -17,7 +19,11 @@ const Header = () => {
   return (
     <header className="main-header">
       <div className="logo">
+
+        <Link to="/">OPIUM </Link>
+
         <Link to="/">JAVI'S MARKET</Link>
+
       </div>
       <nav className="main-nav">
         <ul>

@@ -2,6 +2,16 @@
 
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+
+import { useUser } from '../context/UserContext';
+const PrivateRoute = () => {
+  const { isAuthenticated } = useUser();
+
+
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+};
+
+
 import { useUser } from '../context/UserContext'; 
 
 const PrivateRoute = () => {
@@ -10,5 +20,6 @@ const PrivateRoute = () => {
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 };
+
 
 export { PrivateRoute };

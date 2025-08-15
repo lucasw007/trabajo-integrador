@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
+
+import { Link } from "react-router-dom";
+
 import { Link } from "react-router-dom"; 
+
 import { useUser } from "../context/UserContext"; 
 import '../styles/pages/Home.css'; 
 
