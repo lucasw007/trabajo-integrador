@@ -1,5 +1,9 @@
 import React from 'react';
+
 import '../styles/pages/AboutUs.css';
+
+
+import '../styles/pages/AboutUs.css'; 
 
 const AboutUs = () => {
   return (

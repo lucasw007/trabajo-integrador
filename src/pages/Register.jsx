@@ -4,7 +4,12 @@ import { useUser } from '../context/UserContext';
 import '../styles/pages/Register.css';
 
 
+
 const Register = () => {
+
+const Register = () => {
+
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -24,6 +29,30 @@ const Register = () => {
       setError('El registro falló. El nombre de usuario ya existe o hubo un problema.');
     }
   };
+
+
+
+  const { register } = useUser();
+  const navigate = useNavigate();
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null); 
+    
+
+    const success = await register(username, password);
+
+    if (success) {
+
+      navigate('/login');
+    } else {
+
+      setError('El registro falló. El nombre de usuario ya existe o hubo un problema.');
+    }
+  };
+
 
   return (
     <div className="register-container">

@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
+
 import { Link } from "react-router-dom";
+
+import { Link } from "react-router-dom"; 
+
 import { useUser } from "../context/UserContext"; 
 import '../styles/pages/Home.css'; 
 
@@ -8,6 +12,7 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const { isAuthenticated } = useUser(); 
 
+ 
   const fetchingProducts = async () => {
     try {
       const response = await fetch("https://fakestoreapi.com/products", { method: "GET" });
@@ -21,6 +26,7 @@ const Home = () => {
   useEffect(() => {
     fetchingProducts();
   }, []); 
+
 
   const filteredProducts = products.filter(product =>
     product.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -55,6 +61,7 @@ const Home = () => {
         <h2>Nuestros productos</h2>
         <p>Elegí entre nuestras categorías más populares.</p>
         
+
         <div className="search-bar">
           <input
             type="text"
@@ -63,6 +70,7 @@ const Home = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
+
 
         <div className="product-grid">
           {filteredProducts.length > 0 ? (

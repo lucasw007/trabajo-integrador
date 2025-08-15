@@ -4,15 +4,30 @@ import { useUser } from "../context/UserContext";
 import '../styles/pages/Dashboard.css'; 
 
 const Dashboard = () => {
+
   const { user } = useUser();
   
+
+ 
+  const { user } = useUser();
+  
+ 
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [product, setProduct] = useState(null);
+
   const [error, setError] = useState(null);
 
  
+
+
+  const [error, setError] = useState(null);
+
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null); 
@@ -26,6 +41,7 @@ const Dashboard = () => {
       return;
     }
 
+
     const newProduct = {
       id: crypto.randomUUID(), 
       title: name,
@@ -36,6 +52,7 @@ const Dashboard = () => {
     };
 
     try {
+
       const response = await fetch("https://fakestoreapi.com/products", {
         method: "POST",
         headers: {
@@ -48,10 +65,17 @@ const Dashboard = () => {
         throw new Error("Error al guardar el producto");
       }
 
+
       const data = await response.json();
       setProduct(data); 
       
       
+
+      
+      const data = await response.json();
+      setProduct(data); 
+    
+
       setName("");
       setPrice("");
       setDescription("");

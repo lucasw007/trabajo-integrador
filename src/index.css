@@ -9,6 +9,8 @@
   --border-color: #e2e8f0;
   --error-color: #e53e3e;
   --success-color: #2f855a;
+
+  
 }
 
 
@@ -194,3 +196,32 @@ button:hover {
   border: 1px solid var(--border-color);
   border-radius: 6px;
 }
+
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.6;
+}
+
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+

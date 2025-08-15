@@ -12,6 +12,11 @@ const UserProvider = (props) => {
 
   /**
 
+
+  const [user, setUser] = useState(null);
+
+  /**
+
    * @param {string} username - El nombre de usuario.
    * @param {string} password - La contraseña.
    * @returns {boolean} - true si el login fue exitoso, false en caso contrario.
@@ -27,11 +32,18 @@ const UserProvider = (props) => {
       });
 
       if (response.ok) {
+
         
         const tokenData = await response.json();
         setUser({ username, token: tokenData.token }); 
         setIsAuthenticated(true); 
         return true;
+
+       
+        const tokenData = await response.json();
+        setUser({ username, token: tokenData.token });
+        setIsAuthenticated(true); 
+
       } else {
         console.error("Error en el login: Credenciales incorrectas.");
         return false;
@@ -42,7 +54,7 @@ const UserProvider = (props) => {
     }
   };
 
- 
+
   const logout = () => {
     setUser(null);
     setIsAuthenticated(false);
